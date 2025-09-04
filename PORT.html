@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Faiz Mansuri • Full Stack Developer</title>
+  <meta name="description" content="Animated portfolio of Faiz Mansuri – Full Stack Developer (Fresher)." />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg: #0b0e14;
+      --panel: #111520cc;
+      --text: #e6eef9;
+      --muted: #9fb0c6;
+      --primary: #7aa2ff;
+      --primary-2: #a56bff;
+      --accent: #5ef1c6;
+      --danger: #ff6b7a;
+      --shadow: 0 20px 40px rgba(0,0,0,.35);
+      --radius: 16px;
+      --glass: linear-gradient(180deg, rgba(255,255,255,.1), rgba(255,255,255,.03));
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial; color:var(--text); background:radial-gradient(1200px 600px at 10% -10%, #1a1f2c 0%, #0b0e14 60%),
+      radial-gradient(900px 500px at 110% -20%, #1b1530 10%, transparent 60%),
+      #0b0e14;
+      overflow-x:hidden; scroll-behavior:smooth;
+    }
+    a{color:inherit; text-decoration:none}
+    img{max-width:100%; display:block}
+
+    /* Cursor */
+    .cursor{
+      position:fixed; top:0; left:0; width:22px; height:22px; border:2px solid var(--accent); border-radius:50%; pointer-events:none; transform:translate(-50%, -50%); z-index:9999; mix-blend-mode:exclusion; opacity:.9;
+    }
+
+    /* Navbar */
+    header{
+      position:fixed; inset:0 0 auto 0; height:64px; display:flex; align-items:center; justify-content:center; z-index:1000; backdrop-filter: blur(8px);
+    }
+    .nav{
+      width:min(1100px, 94%); display:flex; align-items:center; justify-content:space-between; padding:10px 16px; border-radius:var(--radius);
+      background:var(--panel); box-shadow:var(--shadow); border:1px solid rgba(255,255,255,.06);
+    }
+    .brand{font-weight:800; letter-spacing:.5px}
+    .brand span{background: linear-gradient(90deg,var(--primary),var(--primary-2)); -webkit-background-clip:text; background-clip:text; color:transparent}
+    .menu{display:flex; gap:18px}
+    .menu a{position:relative; padding:10px 12px; color:var(--muted); font-weight:600; opacity:.9}
+    .menu a:after{content:""; position:absolute; left:12px; right:12px; bottom:6px; height:2px; border-radius:2px; background:linear-gradient(90deg,var(--accent),var(--primary)); transform:scaleX(0); transform-origin:left; transition:.35s ease}
+    .menu a:hover{color:var(--text)}
+    .menu a:hover:after{transform:scaleX(1)}
+
+    /* Section base */
+    section{width:min(1100px, 94%); margin:0 auto; padding:90px 0}
+
+    /* Hero */
+    .hero{min-height:92vh; display:grid; grid-template-columns:1.1fr .9fr; align-items:center; gap:30px}
+    .badge{
+      display:inline-flex; align-items:center; gap:10px; background:var(--panel); padding:8px 12px; border-radius:999px; border:1px solid rgba(255,255,255,.06);
+    }
+    .badge .dot{width:6px; height:6px; border-radius:50%; background:var(--accent); box-shadow:0 0 10px var(--accent)}
+    .title{font-size:clamp(36px, 4vw, 56px); line-height:1.1; margin:12px 0 14px}
+    .title .grad{background:linear-gradient(90deg, var(--primary), var(--accent)); -webkit-background-clip:text; background-clip:text; color:transparent}
+    .subtitle{color:var(--muted); font-size:clamp(15px, 1.4vw, 18px)}
+    .hero-cta{display:flex; flex-wrap:wrap; gap:14px; margin-top:26px}
+    .btn{
+      position:relative; display:inline-flex; align-items:center; gap:10px; padding:12px 18px; border-radius:14px; border:1px solid rgba(255,255,255,.1);
+      background:var(--glass); box-shadow:var(--shadow); font-weight:700; transition:transform .2s ease; will-change:transform; cursor:pointer;
+    }
+    .btn .arrow{transition:transform .25s ease}
+    .btn:hover{transform:translateY(-2px)}
+    .btn:hover .arrow{transform:translateX(4px)}
+    .btn.primary{background:linear-gradient(135deg, rgba(122,162,255,.18), rgba(94,241,198,.18)); border-color:rgba(122,162,255,.35)}
+    .btn.ghost{background:transparent}
+
+    .hero-visual{
+      position:relative; aspect-ratio:1/1; border-radius:24px; overflow:hidden; border:1px solid rgba(255,255,255,.08); background:radial-gradient(60% 60% at 50% 40%, rgba(122,162,255,.25), transparent 70%), radial-gradient(80% 60% at 60% 70%, rgba(94,241,198,.15), transparent 80%);
+      transform-style: preserve-3d; perspective:1000px; box-shadow: var(--shadow);
+    }
+    .orb{position:absolute; border-radius:50%; filter: blur(20px); opacity:.9; mix-blend-mode: screen}
+    .orb.one{width:200px; height:200px; background:radial-gradient(circle at 30% 30%, #7aa2ff, transparent 70%); top:10%; left:-6%}
+    .orb.two{width:280px; height:280px; background:radial-gradient(circle at 60% 40%, #5ef1c6, transparent 70%); bottom:-8%; right:-6%}
+    .grid{
+      position:absolute; inset:0; background-image:radial-gradient(rgba(255,255,255,.08) 1px, transparent 1px); background-size:22px 22px; transform:translateZ(60px);
+    }
+    .code-card{
+      position:absolute; left:8%; top:12%; width:84%; height:76%; border-radius:18px; padding:16px; background:#0e1320e6; border:1px solid rgba(255,255,255,.08);
+      font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size:13px; overflow:auto; transform: rotateY(-8deg) rotateX(6deg) translateZ(40px);
+    }
+    .code-card pre{margin:0; white-space:pre}
+    .hl1{color:#9cdcfe} .hl2{color:#c586c0} .hl3{color:#ce9178} .hl4{color:#b5cea8} .hl5{color:#4fc1ff}
+
+    /* Section titles */
+    .section-head{display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:26px}
+    .section-head h2{margin:0; font-size:clamp(26px, 3vw, 36px)}
+    .section-head .line{height:1px; flex:1; margin-left:16px; background:linear-gradient(90deg, transparent, rgba(255,255,255,.2), transparent)}
+
+    /* Cards */
+    .grid-3{display:grid; grid-template-columns:repeat(3, 1fr); gap:18px}
+    .card{background:var(--panel); border:1px solid rgba(255,255,255,.06); border-radius:16px; padding:18px; box-shadow:var(--shadow); transition:transform .25s ease, border-color .25s}
+    .card:hover{transform:translateY(-6px); border-color:rgba(122,162,255,.4)}
+
+    /* Skills */
+    .pill{display:inline-flex; align-items:center; padding:8px 12px; border-radius:999px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.08); margin:6px; font-weight:600; color:var(--muted)}
+    .pill b{color:var(--text); margin-right:6px}
+
+    /* Timeline */
+    .timeline{position:relative;}
+    .timeline:before{content:""; position:absolute; left:10px; top:0; bottom:0; width:2px; background:linear-gradient(180deg, var(--primary), transparent)}
+    .tl-item{position:relative; padding-left:34px; margin:18px 0}
+    .tl-item:before{content:""; position:absolute; left:4px; top:.35em; width:14px; height:14px; border-radius:50%; background:var(--accent); box-shadow:0 0 12px var(--accent)}
+    .tl-item .when{color:var(--muted); font-weight:700; font-size:.95rem}
+
+    /* Projects */
+    .project{display:flex; flex-direction:column; gap:10px}
+    .project .thumb{height:160px; border-radius:12px; background:linear-gradient(135deg, rgba(122,162,255,.2), rgba(94,241,198,.18)); border:1px solid rgba(255,255,255,.06)}
+    .project .meta{display:flex; align-items:center; gap:10px; flex-wrap:wrap}
+
+    /* Contact */
+    .contact{display:grid; grid-template-columns:1.2fr .8fr; gap:18px}
+    .input{width:100%; padding:12px 14px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.08); color:var(--text); border-radius:12px}
+    textarea.input{min-height:140px; resize:vertical}
+
+    /* Footer */
+    footer{padding:30px 0 60px; color:var(--muted); text-align:center}
+
+    /* Reveal on scroll */
+    .reveal{opacity:0; transform:translateY(16px); transition:all .6s cubic-bezier(.2,.75,.2,1)}
+    .reveal.visible{opacity:1; transform:none}
+
+    /* Scroll progress */
+    .progress{position:fixed; left:0; top:0; height:3px; background:linear-gradient(90deg, var(--accent), var(--primary)); width:0%; z-index:1200}
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .hero{grid-template-columns:1fr; padding-top:72px}
+      .contact{grid-template-columns:1fr}
+      .grid-3{grid-template-columns:1fr}
+      .menu{display:none}
+    }
+  </style>
+</head>
+<body>
+  <div class="progress" id="progress"></div>
+  <div class="cursor" id="cursor"></div>
+
+  <!-- Header / Nav -->
+  <header>
+    <nav class="nav">
+      <div class="brand">Faiz <span>Mansuri</span></div>
+      <div class="menu">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#education">Education</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero" id="home">
+    <div>
+      <div class="badge reveal"><span class="dot"></span> Full Stack Developer • Fresher</div>
+      <h1 class="title reveal">Building <span class="grad">secure</span>, fast & delightful web apps.</h1>
+      <p class="subtitle reveal">B.Tech CSE (Information Security) @ VIT Vellore. Java • Python • SQL • HTML • CSS • JavaScript. Passionate about clean code, performance and UX.</p>
+      <div class="hero-cta reveal">
+        <a class="btn primary magnet" href="#projects">View Projects <span class="arrow">→</span></a>
+        <a class="btn ghost magnet" href="mailto:faiz.mansuri.dll@gmail.com">Email Me</a>
+        <a class="btn ghost magnet" target="_blank" rel="noreferrer" href="https://www.linkedin.com/in/faiz-mansuri-9b6762136">LinkedIn</a>
+      </div>
+    </div>
+    <div class="hero-visual reveal" id="tilt">
+      <div class="grid"></div>
+      <div class="orb one"></div>
+      <div class="orb two"></div>
+      <div class="code-card">
+        <pre><code><span class="hl2">// demo snippet</span>
+<span class="hl1">function</span> <span class="hl5">greet</span>(<span class="hl1">name</span>) { 
+  <span class="hl1">const</span> <span class="hl5">msg</span> = <span class="hl3">`Hello, ${name}!`</span>;
+  <span class="hl1">return</span> <span class="hl5">msg</span>;
+}
+
+<span class="hl1">const</span> <span class="hl5">skills</span> = [<span class="hl3">'Java'</span>, <span class="hl3">'Python'</span>, <span class="hl3">'SQL'</span>, <span class="hl3">'HTML'</span>, <span class="hl3">'CSS'</span>, <span class="hl3">'JavaScript'</span>];
+<span class="hl5">skills</span>.map(s => <span class="hl3">`✔ ${s}`</span>);
+
+<span class="hl2">// performance matters</span>
+<span class="hl1">requestAnimationFrame</span>(() => {
+  <span class="hl1">console</span>.<span class="hl5">log</span>(<span class="hl3">'Welcome to my portfolio!'</span>);
+});
+        </code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about">
+    <div class="section-head reveal"><h2>About</h2><div class="line"></div></div>
+    <div class="card reveal">
+      <p>I'm Faiz Mansuri, a fresher <b>Full Stack Developer</b> with a strong base in Java, Python, SQL and modern web technologies (HTML, CSS, JS). With a specialization in <b>Information Security</b> from VIT Vellore, I love building secure, performant and user-friendly products.</p>
+      <p>Previously interned as a Web Developer at SpiceTech IT Solutions where I worked on features, debugging and code optimization in a Linux environment.</p>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills">
+    <div class="section-head reveal"><h2>Technical Skills</h2><div class="line"></div></div>
+    <div class="card reveal">
+      <div>
+        <span class="pill"><b>Languages:</b> Java, Python, JavaScript</span>
+        <span class="pill"><b>Web:</b> HTML, CSS, Bootstrap, Responsive Design</span>
+        <span class="pill"><b>Databases:</b> SQL, MySQL, ER Diagrams</span>
+        <span class="pill"><b>Security/OS:</b> InfoSec, Network Security, Cloud Security (Basics), Linux</span>
+        <span class="pill"><b>Tools:</b> VS Code, Git/GitHub, User Testing Tools</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects">
+    <div class="section-head reveal"><h2>Projects</h2><div class="line"></div></div>
+    <div class="grid-3">
+      <div class="card project reveal tilt-card">
+        <div class="thumb"></div>
+        <h3>Library Management System</h3>
+        <p>CRUD application with login authentication and MySQL integration to manage books and users.</p>
+        <div class="meta">
+          <span class="pill">Java</span>
+          <span class="pill">MySQL</span>
+          <span class="pill">Auth</span>
+        </div>
+      </div>
+      <div class="card project reveal tilt-card">
+        <div class="thumb"></div>
+        <h3>Portfolio Website</h3>
+        <p>Responsive personal website with interactive UI components and smooth animations.</p>
+        <div class="meta">
+          <span class="pill">HTML</span>
+          <span class="pill">CSS</span>
+          <span class="pill">JavaScript</span>
+        </div>
+      </div>
+      
+    </div>
+  </section>
+
+  <!-- Experience -->
+  <section id="experience">
+    <div class="section-head reveal"><h2>Experience</h2><div class="line"></div></div>
+    <div class="card reveal timeline">
+      <div class="tl-item">
+        <div class="when">Aug 2023 – Nov 2023 • Intern – Web Developer • SpiceTech IT Solutions, Kota</div>
+        <ul>
+          <li>Developed and maintained web modules using <b>HTML, CSS, JavaScript, SQL</b>.</li>
+          <li>Collaborated with senior developers to troubleshoot, optimize and implement features.</li>
+          <li>Worked on Linux and followed secure coding practices for reliability.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Education -->
+  <section id="education">
+    <div class="section-head reveal"><h2>Education</h2><div class="line"></div></div>
+    <div class="grid-3">
+      <div class="card reveal">
+        <h3>B.Tech – CSE (Information Security)</h3>
+        <p>Vellore Institute of Technology, Vellore</p>
+        <p class="muted">Aug 2021 – July 2025</p>
+        <p>Key coursework: Cryptography, Network Security, Ethical Hacking, Cloud Security.</p>
+      </div>
+      <div class="card reveal">
+        <h3>Class XII (Science)</h3>
+        <p>Bansal Public School</p>
+        <p class="muted">2020 • CBSE distinction in PCM</p>
+      </div>
+      <div class="card reveal">
+        <h3>Certifications</h3>
+        <ul>
+          <li>Azure AI Engineer Associate</li>
+          <li>Programming in Python (Grade A)</li>
+          <li>Webflow Program – Growth School</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Awards & Activities -->
+  <section id="awards">
+    <div class="section-head reveal"><h2>Awards & Activities</h2><div class="line"></div></div>
+    <div class="card reveal">
+      <ul>
+        <li><b>State-Level Basketball Player</b> – Represented Madhya Pradesh (2018–2019)</li>
+        <li>Cybersecurity hackathons & tech fests at VIT</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <div class="section-head reveal"><h2>Contact</h2><div class="line"></div></div>
+    <div class="contact">
+      <div class="card reveal">
+        <form onsubmit="event.preventDefault(); alert('Thanks! I will get back to you soon.');">
+          <input class="input" placeholder="Your Name" required>
+          <br><br>
+          <input class="input" type="email" placeholder="Your Email" required>
+          <br><br>
+          <textarea class="input" placeholder="Message" required></textarea>
+          <br><br>
+          <button class="btn primary magnet" type="submit">Send Message</button>
+        </form>
+      </div>
+      <div class="card reveal">
+        <h3>Reach me</h3>
+        <p><b>Email:</b> <a href="mailto:faiz.mansuri.dll@gmail.com">faiz.mansuri.dll@gmail.com</a></p>
+        <p><b>LinkedIn:</b> <a target="_blank" rel="noreferrer" href="https://www.linkedin.com/in/faiz-mansuri-9b6762136">/in/faiz-mansuri-9b6762136</a></p>
+        <p><b>Location:</b> Kota, Rajasthan, India</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © <span id="year"></span> • Built with HTML, CSS & JavaScript • Designed by Faiz
+  </footer>
+
+  <script>
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Scroll progress
+    const progress = document.getElementById('progress');
+    window.addEventListener('scroll', () => {
+      const h = document.documentElement;
+      const scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+      progress.style.width = scrolled + '%';
+    });
+
+    // Reveal on scroll
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target);} });
+    }, {threshold: .12});
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    // Simple tilt for hero card
+    const tilt = document.getElementById('tilt');
+    if (tilt) {
+      tilt.addEventListener('mousemove', (e) => {
+        const r = tilt.getBoundingClientRect();
+        const cx = r.left + r.width/2; const cy = r.top + r.height/2;
+        const dx = (e.clientX - cx) / (r.width/2);
+        const dy = (e.clientY - cy) / (r.height/2);
+        tilt.style.transform = `rotateY(${dx*6}deg) rotateX(${dy*-6}deg)`;
+      });
+      tilt.addEventListener('mouseleave', () => { tilt.style.transform = 'rotateY(0) rotateX(0)'; });
+    }
+
+    // 3D tilt cards
+    document.querySelectorAll('.tilt-card').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const r = card.getBoundingClientRect();
+        const dx = (e.clientX - r.left) / r.width * 2 - 1;
+        const dy = (e.clientY - r.top) / r.height * 2 - 1;
+        card.style.transform = `rotateY(${dx*6}deg) rotateX(${dy*-6}deg) translateY(-6px)`;
+      });
+      card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+    });
+
+    // Magnetic buttons
+    document.querySelectorAll('.magnet').forEach(btn => {
+      const strength = 18;
+      btn.addEventListener('mousemove', (e) => {
+        const r = btn.getBoundingClientRect();
+        const x = e.clientX - (r.left + r.width/2);
+        const y = e.clientY - (r.top + r.height/2);
+        btn.style.transform = `translate(${x/strength}px, ${y/strength}px)`;
+      });
+      btn.addEventListener('mouseleave', () => { btn.style.transform = ''; });
+    });
+
+    // Custom cursor
+    const cursor = document.getElementById('cursor');
+    let cx = window.innerWidth/2, cy = window.innerHeight/2; // current
+    let tx = cx, ty = cy; // target
+    const lerp = (a,b,t)=>a+(b-a)*t;
+    window.addEventListener('mousemove', e => { tx = e.clientX; ty = e.clientY; });
+    function loop(){
+      cx = lerp(cx, tx, 0.15); cy = lerp(cy, ty, 0.15);
+      cursor.style.transform = `translate(${cx}px, ${cy}px)`;
+      requestAnimationFrame(loop);
+    } loop();
+
+    // Smooth hash link offset for fixed header
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', (e) => {
+        const id = a.getAttribute('href');
+        if(id.length > 1){
+          e.preventDefault();
+          const el = document.querySelector(id);
+          window.scrollTo({ top: el.offsetTop - 60, behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
